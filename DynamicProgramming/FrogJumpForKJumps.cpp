@@ -20,16 +20,17 @@ int main()
 
 	for (int i = 1;i<n;i++)
 	{
+		int minSteps = INT_MAX;
 		for (int j = 1; j <= i;j++)
 		{
-			int fs = dp[j-1] + abs(energies[j] - energies[j - 1]);
-			int ss = INT_MAX;
-			if(j>1)
-				ss = prev2 + abs(energies[i] - energies[i - 2]);
-			dp[i] = min(fs, ss);
+			int jump = 0;
+			if(i-j>=0)
+				jump = dp[i-j] + abs(energies[i] - energies[i - 2]);
+			minSteps = min(minSteps, jump);
 		}
-	}
+		dp[i] = minSteps;
+		}
 
-	cout << "ANSWER: " << curr;
+	cout << "ANSWER: " << dp[n-1];
 	return 0;
 }
